@@ -1,7 +1,7 @@
 $( document ).ready( function()
 {
     $("#guardar").click(function(){
-        //Validamos el formulario al pulsar el "boton" guardar...
+        //Validamos el formulario al pulsar el "btn" guardar...
         //
         var accion = $("#accion").val();
        if($("#form_datos_personales").valid())
@@ -21,21 +21,20 @@ $( document ).ready( function()
             contenido['sexo'] = $("#sexo").val();
             contenido['tipo_via'] = $("#tipo_via").val();
             contenido['tipo_via_2'] = $("#tipo_via_2").val(); 
+            contenido['accion'] = accion;
             //Parseamos el objeto con todos los datos a formato json...
             //
             json_contenido = JSON.stringify(contenido);
             //Mediante la función Ajax add_upd mandamos el objeto parseado al serv para que ejecute la accion correspondiente...
             // 
-            add_upd(json_contenido , accion);   
+            add_upd(json_contenido);   
        }
-       else
-       //En el caso de que alguno de los valores del formulario no sea correcto no haremos nada...
+       //En el caso de que alguno de los valores del formulario no sea correcto no haremos nada, no sería necesarios el else...
        //
-       {   
-       } 
+       else{}   
     });
 });
-function add_upd(json_contenido , accion)
+function add_upd(json_contenido)
 {
     //Instanciamos los parametros para enviar al ser(Json)...
     //
@@ -51,7 +50,7 @@ function add_upd(json_contenido , accion)
         //En el caso de que la petición Ajax se ejecute correctamente se muestra la respuesta...
         //
         alert(JSON.stringify(respuesta.respuesta));
-        if(accion == "AÑADIR")
+        if(accion == "AÑADIR" && JSON.stringify(respuesta.respuesta) == "Usuario se ha añadido correctamente")
         {
             $("input").val(" ");
         }

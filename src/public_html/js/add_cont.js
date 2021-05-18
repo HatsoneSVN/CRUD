@@ -1,40 +1,50 @@
  
  $(document).ready(function(){
-    //Creamos un obj js con la acción a realizar y el id...
+    //Comprobamos que el us estse log correctamente...
     //
-    var contenido = new Object();
-    var accion = $("#accion").val();
-    contenido['accion'] = "MOSTRAR";
-    contenido['id'] =  $("#id").val();
-    //Lo parseamos a formato Json...
-    //
-    json_contenido = JSON.stringify(contenido);
-    //Validamos que la acción escogida sea correcta...
-    //
-    if(accion == false)
+    var statusLog = localStorage.getItem("LOGGED");
+    if(statusLog != "YES")
     {
-        alert("No llega información de la acción a realizar");
+        window.location.replace("http://localhost/index.php");
     }
-    else 
+    else
     {
-        //En el caso de que la acción requerida sea EDITAR validamos si el id del usuario a editar es correcto, en cuyo caso mostraremos los sus datos en mediante el metodo mostrar()...
+        //Creamos un obj js con la acción a realizar y el id...
         //
-        if(accion == "EDITAR")
+        var contenido = new Object();
+        var accion = $("#accion").val();
+        contenido['accion'] = "MOSTRAR";
+        contenido['id'] =  $("#id").val();
+        //Lo parseamos a formato Json...
+        //
+        json_contenido = JSON.stringify(contenido);
+        //Validamos que la acción escogida sea correcta...
+        //
+        if(accion == false)
         {
-            if(id == 0)
+            alert("No llega información de la acción a realizar");
+        }
+        else 
+        {
+            //En el caso de que la acción requerida sea EDITAR validamos si el id del usuario que queremos editar es correcto, en cuyo caso mostraremos sus datos mediante el metodo mostrar()...
+            //
+            if(accion == "EDITAR")
             {
-                alert("No llega informacion del id ");
-            }
-            else
-            {
-                mostrar(json_contenido);
-            }
-        }     
+                if(id == 0)
+                {
+                    alert("No llega información del id ");
+                }
+                else
+                {
+                    mostrar(json_contenido);
+                }
+            }     
+        }
     } 
 }); 
 function mostrar(json_contenido)
 {
-    //Instanciamos los parametros que pasaremso al serv...
+    //Instanciamos los parametros que pasaremos al serv...
     //
     parametro={
         "datos" : json_contenido
@@ -45,7 +55,7 @@ function mostrar(json_contenido)
         method: 'post',
         dataType:'json'
     }).done(function(respuesta){ 
-        //En el caso de que la peticion Ajax sea correcta recogemos los valores que nos devuelve el serv en json y los colocamos en su respectivo lugar...
+        //En el caso de que la petición Ajax sea correcta recogemos los valores que nos devuelve el serv en json y los colocamos en su respectivo lugar...
         //
             //Datos personales usuario a editar...
             //

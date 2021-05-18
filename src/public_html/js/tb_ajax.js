@@ -3,56 +3,66 @@ var offset = 0;
 var limit = 10;
 $( document ).ready( function()
 {   
-    //En cuanto carga la página dibujamos la tabla con los valores por defecto...
+    //Comprobamos si el usuario esta logeado...
     //
-    tabla(offset , limit );
-    $("#limit").change(function(){
-        limit = $("#limit").val();
-        offset = 0;
-        tabla(offset , limit);
-    });
-    //Al cambiar el número de la página la tabla se recarga con los valores correspondientes...
-    //
-    $("#num_pg").change(function(){
-        offset = parseInt($("#num_pg").val()) * parseInt(limit);
-        tabla(offset , limit);
-    });
-    //Evento de siguiente...
-    //
-    $("#siguiente").click(function(){
-        offset = parseInt(offset) + parseInt(limit);
-        tabla(offset , limit);
-    });
-    //Evento de anterior...
-    //
-    $("#anterior").click(function(){
-        offset = offset - limit;
-        tabla(offset , limit);
-    });
-    //Al pulsar el boton de primera se recarga la tabla con los valores correspondientes...
-    //
-    $("#primera").click(function(){
-        offset = 0;
-        tabla(offset , limit);
-    });
-    //Al pulsar el boton de última se recarga la tabla con los valores correspondientes...
-    //
-    $("#ultima").click(function(){
-        offset = ($("#total").val()) * limit;
-        tabla(offset , limit);
-    });
-    //Evento que filtra el contenido de la tabla en funcion de los parametros introducidos en el buscador...
-    //
-    $("#buscador").keyup(function(){
-        tabla(offset , limit);
-    });
+    var statusLog = localStorage.getItem("LOGGED");
+    if(statusLog != "YES")
+    {
+        window.location.replace("http://localhost/index.php");
+    }
+    else
+    {
+        //En cuanto carga la página dibujamos la tabla con los valores por defecto...
+        //
+        tabla(offset , limit );
+        $("#limit").change(function(){
+            limit = $("#limit").val();
+            offset = 0;
+            tabla(offset , limit);
+        });
+        //Al cambiar el número de la página la tabla se recarga con los valores correspondientes...
+        //
+        $("#num_pg").change(function(){
+            offset = parseInt($("#num_pg").val()) * parseInt(limit);
+            tabla(offset , limit);
+        });
+        //Evento de siguiente...
+        //
+        $("#siguiente").click(function(){
+            offset = parseInt(offset) + parseInt(limit);
+            tabla(offset , limit);
+        });
+        //Evento de anterior...
+        //
+        $("#anterior").click(function(){
+            offset = offset - limit;
+            tabla(offset , limit);
+        });
+        //Al pulsar el boton de primera se recarga la tabla con los valores correspondientes...
+        //
+        $("#primera").click(function(){
+            offset = 0;
+            tabla(offset , limit);
+        });
+        //Al pulsar el boton de última se recarga la tabla con los valores correspondientes...
+        //
+        $("#ultima").click(function(){
+            offset = ($("#total").val()) * limit;
+            tabla(offset , limit);
+        });
+        //Evento que filtra el contenido de la tabla en funcion de los parametros introducidos en el buscador...
+        //
+        $("#buscador").keyup(function(){
+            tabla(offset , limit);
+        });
+    }
 });
 //Esta función se encarga de confirmar y ejecutar la eliminación...
 //
 function eliminar(elemento)
 {
     id = elemento.id;
-    var conf = confirm("Esta seguro de que desea eliminar el usuario con id " + id);
+    var conf = confirm("Está seguro de que desea eliminar el usuario con id " + id);
         if(conf == true)
         {
             ejecutar_eliminar(id);
@@ -142,7 +152,7 @@ function tabla(offset , limit , contenido)
                 }       
             }
             $("#num_pg").html(paginas);
-            //Segun en la pg en la que nos encontremos mostramos unos botones u otro...
+            //Según en la pg en la que nos encontremos mostramos unos botones u otro...
             //      
             if(val_posicion == cant_rows || usuarios.length < limit)
             {
@@ -217,7 +227,7 @@ function ejecutar_eliminar(id)
             }
             else
             {
-                alert("No se ha podido borrar el usuario");
+                alert("Erro al eliminar el usuario");
             }
         }).fail(function( jqXHR, textStatus, errorThrown , respuesta ){
             if (jqXHR.status === 0) 
