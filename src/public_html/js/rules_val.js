@@ -1,6 +1,6 @@
 $( document ).ready( function() 
 {
-	//Metodo que detecta que el valor pasado por parametro no contenga ningún numero, devuelve true o false...
+	//Método que detecta que el valor pasado por parametro no contenga ningún numero, devuelve true o false...
 	//
 	$.validator.addMethod("validar_solo_letras", function (valor) 
 	{
@@ -20,7 +20,7 @@ $( document ).ready( function()
 		}
 		return correcto;	
 	  });
-	//Metodo que valida el dni del usuario , devuelve true o false...
+	//Método que valida el dni del usuario , devuelve true o false...
 	//	
 	$.validator.addMethod("validar_dni", function(dni)
 	{
@@ -39,6 +39,8 @@ $( document ).ready( function()
 			return true;
 		}
 		});
+	//Metodo para validar la seguridad de la contraseña del login
+	//
     jQuery( function()
 	{
 		jQuery( "#form_datos_personales" ).validate({
@@ -84,7 +86,6 @@ $( document ).ready( function()
 				numero: {
 					number:true,
 					min:0,
-					//max:200
 				},
 				piso: {
 					maxlength:4
@@ -126,7 +127,6 @@ $( document ).ready( function()
 			numero_2: {
 				number:true,
 				min:0,
-				//max:200
 			},
 			piso_2: {
 				maxlength:4
@@ -155,9 +155,7 @@ $( document ).ready( function()
 			pais_2: {
 				maxlength:60,
 				validar_solo_letras:true
-			},
-		//Mensajes de error...
-		//
+			}
 		},
 		messages: {
 			//Mensajes de error para los datos personales...
@@ -303,6 +301,190 @@ $( document ).ready( function()
 				},
 			},
 			errorElement : 'span'
+		});
+		jQuery("#form_login").validate({
+			rules:{
+				//Validaciones para login...
+				//
+				usernameEmail:{
+					maxlength: 80,
+					required:true
+				},
+				pass:{
+					required:true,
+					maxlength:20
+				},
+				//Validaciones para registro...
+				//
+				username:{
+					maxlength: 30,
+				},
+				email:{
+					email:true,
+				},
+				passR:{
+					required:true,
+					minlength:6,
+					maxlength:20,
+				},
+				pass_conf:{
+					required:true,
+					equalTo:"#passR" 
+				}
+			},
+			messages: {
+				//Mensajes de error para login...
+				//
+				usernameEmail:{
+					required:"Rellene este campo"
+				},
+				pass:{
+					required:"Rellene este campo"
+				},
+				username:{
+					minlength: "Introduce al menos {0} caracteres",
+					maxlength:"Máximo de {0} caracteres",
+					required:"Rellene este campo"
+				},
+				email:{
+					maxlength:"Maximo de {0} caracteres",
+					email: "El formato introducido no es correcto",
+					required:"Rellene este campo"
+				},
+				passR:{
+					minlength: "Introduce al menos {0} caracteres",
+					maxlength:"Máximo de {0} caracteres",
+					required:"Rellene este campo"
+				},
+				pass_conf:{
+					minlength: "Introduce al menos {0} caracteres",
+					maxlength:"Máximo de {0} caracteres"
+				},	
+			},
+			errorElement : 'span'
+		});
+		jQuery("#form_login").validate({
+			rules:{
+				//Validaciones para login...
+				//
+				usernameEmail:{
+					maxlength: 80,
+					required:true
+				},
+				pass:{
+					required:true,
+					maxlength:20
+				},
+				//Validaciones para registro...
+				//
+				username:{
+					maxlength: 30,
+				},
+				email:{
+					email:true,
+				},
+				passR:{
+					required:true,
+					minlength:6,
+					maxlength:20,
+				},
+				pass_conf:{
+					required:true,
+					equalTo:"#passR" 
+				}
+			},
+			messages: {
+				//Mensajes de error para login...
+				//
+				usernameEmail:{
+					required:"Rellene este campo"
+				},
+				pass:{
+					required:"Rellene este campo"
+				},
+				username:{
+					minlength: "Introduce al menos {0} caracteres",
+					maxlength:"Máximo de {0} caracteres",
+					required:"Rellene este campo"
+				},
+				email:{
+					maxlength:"Maximo de {0} caracteres",
+					email: "El formato introducido no es correcto",
+					required:"Rellene este campo"
+				},
+				passR:{
+					minlength: "Introduce al menos {0} caracteres",
+					maxlength:"Máximo de {0} caracteres",
+					required:"Rellene este campo"
+				},
+				pass_conf:{
+					minlength: "Introduce al menos {0} caracteres",
+					equalTo: "repitelo bien",
+					maxlength:"Máximo de {0} caracteres",
+					required:"Rellene este campo"
+				},	
+			},
+			errorElement : 'span'
+		});
+		jQuery( "#form_editar_dat" ).validate({
+			rules: {
+				nuevo_nombre:{
+					maxlength: 30,
+					required:true
+				},
+				nuevo_email:{
+					email:true,
+					required:true
+				},
+		},
+		messages: {
+			nuevo_nombre: {
+				maxlength:"Maximo de {0} caracteres",
+				required:"Rellene este campo"
+			},
+			nuevo_email:{
+				email:"El formato no es correcto...",
+				required:"Rellena este campo..."
+			},
+		},
+			errorElement : 'span'
+		});
+		jQuery( "#form_editar_pass" ).validate({
+			rules: {
+				pass_ant:{
+					maxlength: 20,
+					required:true
+				},
+				nw_pass:{
+					required:true,
+					minlength:6
+				},
+				comp_nw_pass:{
+					maxlength: 20,
+					minlength: 6,
+					required:true,
+					equalTo:"#nw_pass" 
+				},
+			},
+			messages: {
+				pass_ant:{
+					maxlength:"Máximo de {0} caracteres",
+					required:"Rellene este campo"
+				},
+				nw_pass:{
+					maxlength:"Máximo de {0} caracteres",
+					minlength:"Minimo {0} caracteres",
+					required:"Rellene este campo"
+				},
+				comp_nw_pass:{
+					maxlength:"Máximo de {0} caracteres",
+					required:"Rellene este campo",
+					equalTo: "repitelo bien"
+
+					
+				},
+			},
+				errorElement : 'span'
 		});
 	});
 });

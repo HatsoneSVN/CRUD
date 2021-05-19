@@ -1,142 +1,62 @@
 <?php
-require_once(dirname(__FILE__)."/../../database/conexion.inc.php");
+
+require_once(dirname(__FILE__)."/../../../database/conexion.inc.php");
+include_once(dirname(__FILE__)."/../funciones.inc.php");
     class Usuario
     {
-    //Cramos todos los atr de la clase usuario...
-    //
-        public $id;     
-        public $nombre;       
-        public $primer_apellido;     
-        public $segundo_apellido;
-        public $dni;
-        public $sexo;
-        public $fecha_nacimiento;
-        public $estado_civil;
+        public $id;
+        public $fecha_creacion;
+        public $fecha_modificacion;
         public $email;
-        public $telefono;
-        public $rows;
-        //Creamos el metodo constructor de la clase...
+        public $nombre;
+        public $pass;
+        //Constructor usuario...
         //
-        public function __construct(){}
-        //Creamos todos los getter y setter de la los atr de la clase...
-        //
-        //nombre
-        //
-		public function getNombre(){
-		return $this->nombre;
-		}
-		public function setNombre($nombre){
-			$this->nombre = $nombre;
+        function __construct( $email , $nombre , $pass){
+            $this->email = $email;
+            $this->nombre = $nombre;
+            $pass_sha1 = password_hash($pass , PASSWORD_BCRYPT);
+            $this->pass = $pass_sha1;
         }
-        //primer_apellido
+        /*ALTER TABLE CLIENTES ADD FOREIGN KEY (id_us) REFERENCES CLIENTES (id_us);*/
+        //getter y setter....
         //
-		public function getPrimer_apellido(){
-			return $this->primer_apellido;
-		}
-		public function setPrimer_apellido($primer_apellido){
-			$this->primer_apellido = $primer_apellido;
-		}
-        //segundo_apellido
-        //
-        public function getSegundo_apellido(){
-			return $this->segundo_apellido;
-		}
-		public function setSegundo_apellido($segundo_apellido){
-			$this->segundo_apellido = $segundo_apellido;
-		}
-        //DNI
-        //
-		public function getDni(){
-		    return $this->dni;
-		}
-		public function setDni($dni){
-			$this->dni = $dni;
+        public function getId(){
+            return $this->id;
         }
-        //Sexo
-        //
-        public function getSexo(){
-            return $this->sexo;
+        public function setId($id){
+             $this->id = $id;
         }
-        public function setSexo($sexo){
-            $this->sexo = $sexo;
+        public function getFecha_creacion(){
+            return $this->fecha_creacion;
         }
-        //fecha
-        //
-        public function getFecha_nacimiento(){
-            return $this->fecha_nacimiento;
+        public function setFecha_creacion($fecha_creacion){
+             $this->fecha_creacion = $fecha_creacion;
         }
-        public function setFecha_nacimiento($fecha_nacimiento){
-            $this->fecha_nacimiento = $fecha_nacimiento;
+        public function getFecha_modificacion(){
+            return $this->fecha_modificacion;
         }
-        //estado civil
-        //
-        public function getEstado_civil(){
-            return $this->estado_civil;
+        public function setTipo_via($fecha_modificacion){
+             $this->fecha_modificacion = $fecha_modificacion;
         }
-        public function setEstado_civil($estado_civil){
-            $this->estado_civil = $estado_civil;
-        }
-        //email
-        //
         public function getEmail(){
             return $this->email;
         }
         public function setEmail($email){
-            $this->email = $email;
+             $this->email = $email;
         }
-        //teléfono
-        //
-        public function getTelefono(){
-            return $this->telefono;
+        public function getNombre(){
+            return $this->nombre;
         }
-        public function setTelefono($telefono){
-            $this->telefono = $telefono;
+        public function setNombre($nombre){
+             $this->nombre = $nombre;
         }
-        //ID
-        //
-        public function getId(){
-			return $this->id;
-		}
-        public function setId($id){
-			$this->id = $id;
+        public function getPass(){
+            return $this->pass;
         }
-        //rows
-        //
-        public function getRows(){
-			return $this->rows;
+        public function setPass($pass){
+            $pass_sha1 = password_hash($pass , PASSWORD_BCRYPT);
+             $this->pass = $pass_sha1;
         }
-        public function setRows($rows){
-			$this->rows = $rows;
-        }
-        //Metodo que ejecuta una sentencia sql para recoger el número total de usuarios dándole su valor al atr rows de la clase us...
-        //
-        public function RowsTotal($bus_char)
-        {
-            $db=Db::conectar();
-            if(empty($bus_char))
-            {
-                $select=$db->query(" SELECT * FROM REGISTRO.USUARIOS");
-            }
-            else
-            {
-                $select=$db->query(" SELECT * FROM REGISTRO.USUARIOS 
-                WHERE 
-                id_us LIKE '%$bus_char%' 
-                OR 
-                dni LIKE '%$bus_char%' 
-                OR
-                nombre LIKE '%$bus_char%' 
-                OR 
-                primer_apellido LIKE '%$bus_char%' 
-                OR 
-                segundo_apellido LIKE '%$bus_char%' 
-                OR 
-                email LIKE '%$bus_char%'
-                OR 
-                tlf LIKE '%$bus_char%'");
-            }
-            $rows = $select->rowCount();
-            $this->rows = $rows;
-        }
-	}
+    }
 ?>

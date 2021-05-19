@@ -30,7 +30,7 @@
 		public function setTipo_via($tipo_via){
 			$this->tipo_via = $tipo_via;
         }
-        //direccion
+        //dirección
         //
 		public function getDireccion(){
 			return $this->direccion;
@@ -38,7 +38,7 @@
 		public function setDireccion($direccion){
 			$this->direccion = $direccion;
         }
-        //comp_direccion
+        //complement dirección
         //
         public function getComp_direccion(){
 			return $this->comp_direccion;
@@ -46,7 +46,7 @@
 		public function setComp_direccion($comp_direccion){
 			$this->comp_direccion = $comp_direccion;
         }
-        //numero
+        //número
         //
         public function getNumero(){
 			return $this->numero;
@@ -102,7 +102,7 @@
         public function getProvincia(){
             return $this->provincia;
         }
-        //pais
+        //país
         //
         public function setPais($pais){
             $this->pais = $pais;

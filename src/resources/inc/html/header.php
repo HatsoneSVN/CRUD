@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?php echo($titulo)?></title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="http://localhost/public_html/js/exit.js"></script>
+ <script src="http://localhost/public_html/js/efects.js"></script>
  <script language="javascript" type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.min.js"></script>
  <link type="text/css" rel="stylesheet" href="/public_html/css/style.css">
 </head>

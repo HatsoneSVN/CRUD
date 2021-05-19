@@ -1,0 +1,52 @@
+version: "3"
+services:
+
+  # -------------- MySql
+  timebus_mysql:
+    container_name: timebus_mysql
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=P@ssw0rd
+      - MYSQL_USER=sa
+      - MYSQL_PASSWORD=P@ssw0rd
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./mysql:/var/lib/mysql
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+
+  # -------------- Apache + PHP
+  timebus_apache_php:
+    container_name: timebus_apache_php
+    volumes:
+      - ./src:/var/www/html
+    expose:
+      - 80
+    ports:
+      - 80:80
+    links:
+      - timebus_mysql:mysql_host
+    depends_on:
+      - timebus_mysql
+    build:
+      context: .
+      dockerfile: Dockerfile-php
+
+  # -------------- phpMyAdmin
+  timebus_myadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: timebus_myadmin
+    environment:
+        PMA_USER: root
+        PMA_PASSWORD: P@ssw0rd
+        PMA_HOST: mysql_host
+        MYSQL_ROOT_PASSWORD: P@ssw0rd
+    ports:
+        - "8181:80"
+    volumes:
+       - /sessions
+    links:
+      - timebus_mysql:mysql_host
